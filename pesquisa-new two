@@ -1,0 +1,120 @@
+/*- A quantidade de pessoas assintomáticas (O exame deu positivo, mas não teve
+sintomas).
+- Qual o percentual de pessoas com mais de 65 anos que procuraram um atendimento
+de Emergência.
+- A média de duração (dias) dos sintomas do coronavírus entre todos os entrevistados
+da pesquisa.
+- A quantidade de pessoas que tiveram sintomas e não precisaram procurar ajuda
+médica.
+- A média de idade das mulheres que tiverem sintomas e o teste deu negativo.*/ 
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    //Variaveis
+    int idade, sexo, sintomas, diasintomas, ajuda, exame;
+    int realexame;
+    
+    //Variaveis calculo
+    int assintomaticas=0;
+    int media=0, soma_dias_sint=0, nao_tiveram_sint=0;
+    
+    //Variasveis calculo2
+    float maior65=0, maior65_2=0, idade_ajuda;
+    int percentual65=0;
+    
+    //Calculo mulher
+    int soma_mulher_idade=0, media_idade=0;
+    
+    //Variaveis de looping
+    int p, c, x;
+    
+    //Introdução
+    printf("================");
+    printf("Pesquisa de Covid-19");
+    printf("================");
+    
+    //Registro de Pessoas
+    printf("\nDigite o numero de pessoas que deseja registrar: ");
+    scanf("%d",&p);
+    
+    //Looping
+    for(c=1; c<p+1; c++){
+        printf("\nRegistrando %dº Pessoa", c);
+        
+        //Entrada de Dados
+        printf("\n\nDigite a idade: ");
+        scanf("%d",&idade);
+        printf("\nSexo \n1- Masculino \n2- Feminino \n=> ");
+        scanf("%d",&sexo);
+        
+        //Sintomas 
+        printf("Teve sintomas de Covid-19? \n1- Sim \n2- Não \n=> ");
+        scanf("%d",&sintomas);
+        
+        if(sintomas == 1){
+            
+            printf("Por quantos dias a pessoa teve sintomas? \n=> ");
+            scanf("%d",&diasintomas);
+            soma_dias_sint += diasintomas;
+        }
+        if(sintomas == 1){
+            
+            printf("Precisou de procurar ajuda médica? \n1- Emergência \n2- Consulta Médica \n3- Não \n=> ");
+            scanf("%d",&ajuda);
+        }
+        //Fez algum teste de covid?
+        printf("Realizou algum teste de Covid-19? \n1-Sim \n2-Não \n=> ");
+        scanf("%d",&exame);
+        
+        if(exame == 1){
+            
+            printf("Qual foi o resultado? \n1-Positivo \n2-Negativo \n=> ");
+            scanf("%d",&realexame);
+        }
+        
+        //Respostas
+        //Pessoas assintomasticas
+        if(sintomas == 2 && realexame == 1){
+            
+            assintomaticas += 1;
+        }
+        
+        //Calculo Porcentagem
+        if(idade > 65){  
+            maior65 ++;
+        }
+        
+        if(idade > 65 && ajuda == 1){
+            maior65_2 ++;
+        }
+            
+        //Resposta Sintomas
+        if(sintomas == 1 && ajuda == 3){
+            
+            nao_tiveram_sint += 1;
+        }
+        
+        if(sexo == 2 && sintomas == 1 && realexame == 2){
+            
+           media_idade = media_idade + idade;
+            soma_mulher_idade ++;
+        }
+        
+    }
+    //Calculo 
+    percentual65 = maior65_2 * 100 / (c - 1);
+    media = soma_dias_sint / p;
+    media_idade = media_idade/soma_mulher_idade;
+    //Saida de Dados
+        printf("\nTeve %d de pessoas assintomaticas", assintomaticas);
+        printf("\nPorcentagem de pessoas maior de 65 procuraram emergencia: %d%%", percentual65);
+        printf("\nMédia de duração em dias dos sintomas de Covid-19: %d", media); 
+        printf("\n%d não precisaram de ajuda", nao_tiveram_sint);
+        printf("\nA média de idade das mulheres que tiverem sintomas e o teste deu negativo: %d", media_idade);
+
+    return 0;
+}
